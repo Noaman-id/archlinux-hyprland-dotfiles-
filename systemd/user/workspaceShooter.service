@@ -1,0 +1,14 @@
+[Unit]
+Description=Hyprland Workspace Screenshot Daemon
+Aftee=graphical-session.target hyprland-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/.config/hypr/scripts/workspaceShooter.sh
+Restart=always
+RestartSec=3s
+Environment=XDG_RUNTIME_DIR=/run/user/%U
+
+[Install]
+WantedBy=graphical-session.target

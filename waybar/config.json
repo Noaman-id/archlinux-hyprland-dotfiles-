@@ -1,0 +1,151 @@
+{
+    "layer": "bottom",
+    "position": "top",
+    "height" :25, 
+    "margin": "3, 0, 2, 0",
+    "modules-left": ["custom/launcher","custom/keyboard","custom/snippetTool" , "custom/screenSnippetTool","tray"],
+    "modules-center": ["hyprland/workspaces"],
+    "modules-right": ["cpu", "memory", "disk","backlight", "pulseaudio", "network", "battery", "clock", "custom/power"],
+
+    "hyprland/workspaces": {
+      "on-click": "activate",
+      "format": "{icon}",
+      "persistent-workspaces": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": []
+      },
+      "format-icons": {
+        "default": "",
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "active": "󱓻",
+        "urgent": "󱓻"
+      }
+    },
+
+    "custom/launcher": {
+        "format":"⋏",
+        "on-click": "exec wofi -c ~/.config/wofi/config -I",
+        "tooltip": false
+    },
+
+    "custom/keyboard":{
+        "on-click": "exec ~/.config/hypr/scripts/keyboard_layout_switch.sh",
+        "exec":"hyprctl getoption input:kb_layout | head -1 | awk '{print $2}'",
+        "format":"  {}",
+        "interval": 1
+    }, 
+
+    "clock": {
+        "interval": 1,
+        "locale": "C", 
+        "format": "{:%I:%M %p}",
+        "format-alt": " {:%a,%b %d}" // Icon: calendar-alt
+    },
+
+    "cpu": {
+        "interval": 10,
+        "format": " {usage}%",
+        "max-length": 10,
+        "on-click": "alacritty -e btop"
+    },
+
+    "memory": {
+        "interval": 30,
+        "format": " {used:0.2f}GB",
+
+        "max-length": 10,
+        "tooltip": false,
+        "on-click":"alacritty -e btop",
+        "warning": 70,
+        "critical": 90
+    },
+
+    "battery": {
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "⚡ {capacity}%",
+        "format-plugged": "🔌 {capacity}%",
+        "format-icons": ["", "", "", "", ""]
+    },
+
+    "network": {
+        "format": "{icon}",
+        "format-alt": "{ipaddr}/{cidr} {icon}",
+        "format-alt-click": "click-right",
+        "format-wifi": "{icon} ({signalStrength}%)",
+        "format-icons": {
+            "wifi": [""],
+            "ethernet": [""],
+            "disconnected": ["None"]
+        },
+        "on-click": "kitty nmtui",
+        "tooltip-format": "{essid}",
+    },
+
+    "pulseaudio": {
+      // "scroll-step": 1, // %, can be a float
+      "format": "{icon} {volume}% {format_source}",
+      "format-bluetooth": "{icon} {volume}% {format_source}",
+      "format-bluetooth-muted": " {format_source}",
+      "format-muted": "  {format_source}",
+      "format-source": " {volume}%",
+      "format-source-muted": "",
+      "format-icons": {
+        "headphone": "",
+        "hands-free": "",
+        "headset": "🎧",
+        "phone": "",
+        "portable": "",
+        "car": "",
+        "default": ["", "", ""]
+      },
+      "on-click": "pavucontrol"
+    },
+
+    "backlight": {
+        "format": "{icon} {percent}%",
+        "format-icons": ["☀️"],
+        "on-scroll-down": "brightnessctl s 1%-",
+        "on-scroll-up": "brightnessctl s +1%"
+    },
+
+    "tray": {
+        "icon-size": 30,
+        "spacing": 7 
+    },
+
+    "disk": {
+        "format": " {free}"
+    },
+
+    "custom/power": {
+        "format":"⏻",
+        "on-click": "exec wlogout",
+        "tooltip": false
+    },
+    
+    "custom/snippetTool": {
+        "format":"📄",
+        "on-click": "exec hyprshot -m region -c -o ~/Pictures/Snippets",
+        "tooltip": true,
+        "tooltip-format": "SUPER + I for snippetTool"
+    },
+
+    "custom/screenSnippetTool": {
+        "format":"",
+        "on-click": "exec hyprshot -m output -c -o ~/Pictures/Snippets/",
+        "tooltip": true,
+        "tooltip-format": "Screen shot Tool"
+    }
+}

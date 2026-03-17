@@ -1,0 +1,6 @@
+[Unit]
+Description=Switch Hyprland keyboard layout when USB keyboard is plugged
+
+[Service]
+Type=oneshot
+ExecStart=/home/noaman/.config/hypr/scripts/keyboardConfigs/keyboardDefaultLg.sh
