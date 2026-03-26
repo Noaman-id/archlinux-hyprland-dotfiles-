@@ -1,0 +1,27 @@
+@import "_colors";
+
+* {
+  font-family: "Anurati";
+  background: transparent;
+}
+
+.clock-box {
+  padding: 40px 0;
+}
+
+.day-label {
+  font-size: 76px;
+  font-weight: 500;
+  color: #{$primary};
+  letter-spacing: 6px;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+}
+
+.date-label {
+  font-size: 36px;
+  font-weight: 500;
+  color: #{$primary};
+  letter-spacing: 6px;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+}
+

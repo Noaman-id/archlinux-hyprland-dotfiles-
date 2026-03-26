@@ -1,0 +1,38 @@
+# Theme
+theme = Catppuccin Mocha
+
+# Font
+font-family = JetBrainsMono Nerd Font
+font-size = 13
+
+# Transparency & blur
+background-opacity = 0.85
+background-blur-radius = 20
+
+# Padding
+window-padding-x = 16
+window-padding-y = 16
+window-padding-balance = true
+window-padding-color = background
+
+# Window
+gtk-titlebar = false
+window-theme = ghostty
+window-show-tab-bar = never
+confirm-close-surface = false
+
+# Cursor
+cursor-style = block
+cursor-style-blink = true
+
+# Shell integration
+shell-integration = detect
+shell-integration-features = cursor,sudo,title
+
+# Behavior
+mouse-hide-while-typing = true
+focus-follows-mouse = true
+
+# Scrollback
+scrollback-limit = 10000
+
