@@ -36,3 +36,4 @@ focus-follows-mouse = true
 # Scrollback
 scrollback-limit = 10000
 
+config-file = ?~/.config/ghostty/dynamic-colors
