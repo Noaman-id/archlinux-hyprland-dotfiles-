@@ -46,9 +46,6 @@ for fName in "${bgnames[@]}"; do
   # Call the function using the correct lowercase name: cacheImg
   cachedresult[$fName]=$(cacheImg "${bgresult[$fName]}" "${CACHE_ROOT}/${fName}.png")
 done
-
-# --- 3. GENERATE ROFI LIST & LAUNCH ---
-
 strrr=""
 # Format: <display_name>\0icon\x1f<icon_path>\n
 for fName in "${bgnames[@]}"; do
@@ -71,9 +68,7 @@ if [[ -z "$selected" ]]; then
   exit 0
 fi
 
-# --- 4. APPLY WALLPAPER ---
-
-swww img "${bgresult[$selected]}" --transition-type=wave --transition-angle=30 --transition-duration=2
+awww img "${bgresult[$selected]}" --transition-type=wave --transition-angle=30 --transition-duration=2 >>/home/noaman/scriptsErrors.txt
 # ether swww or hyprpaper
 #
 #killall hyprpaper
@@ -81,33 +76,16 @@ swww img "${bgresult[$selected]}" --transition-type=wave --transition-angle=30 -
 
 WALLPAPER=${bgresult[$selected]}
 ln -sf $WALLPAPER ~/.cache/current_wallpaper
-echo "Successfully set ${selected} as wallpaper."
-
 echo "The wallpaper chosen is $WALLPAPER"
 
-PRIMARY_HEX_WALLPAPER=$(matugen image "$WALLPAPER" --json strip --source-color-index 0 | jq -r '.palettes.primary["10"].color')
-eww reload
-pkill -SIGUSR2 ghostty
+echo "the fastfetch logo picker and eww color picker is launched"
+exec $(/home/noaman/.config/hypr/scripts/ewwFastfetchGhosttyPicker.sh $WALLPAPER >/home/noaman/scriptsErrors.txt)
+echo "the picker is done"
 
-distance_array=()
-LOGO_TO_APPLY=""
-min_distance=1000
-for f in /home/noaman/.config/fastfetch/logo/*; do
-  LOGO_PRI_HEX=$(matugen image "$f" --dry-run --json strip --source-color-index 0 | jq -r '.palettes.primary["10"].color')
+killall -SIGUSR2 waybar
+echo "waybar reloaded"
 
-  logo_r=$((16#${LOGO_PRI_HEX:0:2}))
-  logo_g=$((16#${LOGO_PRI_HEX:2:2}))
-  logo_b=$((16#${LOGO_PRI_HEX:4:2}))
-
-  R=$((16#${PRIMARY_HEX_WALLPAPER:0:2}))
-  G=$((16#${PRIMARY_HEX_WALLPAPER:2:2}))
-  B=$((16#${PRIMARY_HEX_WALLPAPER:4:2}))
-
-  distance=$(echo "sqrt(($R-$logo_r)*($R-$logo_r) + ($G-$logo_g)*($G-$logo_g) + ($B-$logo_b)*($B-$logo_b))" | bc -l)
-  if (($(echo "$distance < $min_distance" | bc -l))); then
-    LOGO_TO_APPLY=$f
-    min_distance=$distance
-  fi
-done
-
-ln -sf "$LOGO_TO_APPLY" ~/.config/fastfetch/logo/logo.png
+if ! pidof waybar >/dev/null; then
+  echo "waybar was not found, hence launched"
+  exec $(waybar --config "/home/noaman/.config/waybar/config.json" --style "/home/noaman/.config/waybar/style.css")
+fi
