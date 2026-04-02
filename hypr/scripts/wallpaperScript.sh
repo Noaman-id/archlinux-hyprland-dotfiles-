@@ -85,7 +85,7 @@ echo "the picker is done"
 killall -SIGUSR2 waybar
 echo "waybar reloaded"
 
-if ! pidof waybar >/dev/null; then
-  echo "waybar was not found, hence launched"
-  exec $(waybar --config "/home/noaman/.config/waybar/config.json" --style "/home/noaman/.config/waybar/style.css")
-fi
+#if ! pidof waybar >/dev/null; then
+#  echo "waybar was not found, hence launched"
+#  exec $(waybar --config "/home/noaman/.config/waybar/config.json" --style "/home/noaman/.config/waybar/style.css")
+#fi
